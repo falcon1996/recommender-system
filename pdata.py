@@ -14,18 +14,23 @@ data = data.drop('timestamp', 1)
 data.info()
 pdf = pd.DataFrame(data)
 
+#SFrame of whole data
 sf = SFrame(pdf)
+
+train, test = train_test_split(pdf, test_size = 0.3)
+#training,validation = train_test_split(train, test_size = 0.25)
+
+testsf = SFrame(test)
+trainsf=SFrame(train)
+
 
 """
 PopularityRecommender methods
 """
 
-myrating = ranking_factorization_recommender.create(sf, target='rating')
+#myrating = ranking_factorization_recommender.create(sf, target='rating')
+itemrating = graphlab.item_similarity_recommender.create(sf,target='rating', similarity_type='cosine')
 
-
-train, test = train_test_split(pdf, test_size = 0.3)
-
-training,validation = train_test_split(train, test_size = 0.25)
 
 Number_Ratings = len(data)
 Number_Movies = len(np.unique(data['item_id']))
@@ -35,9 +40,14 @@ print('Number_Users:',Number_Users, 'Number_Movies:',Number_Movies, 'Number_Rati
 print('Sparcity(%)', Sparcity)
 
 #print(pdf)
-print(len(train), len(test), len(training), len(validation))
-#print(sf)
-print(myrating)
+#print(len(train), len(test), len(training), len(validation))
+
+m = graphlab.recommender.create(trainsf, target='rating')
+print(m.evaluate_rmse(testsf, target='rating') )
+
+#print(myrating)
+
+print(itemrating.recommend() )
 
 plt.hist(data['rating'])
 plt.show()
