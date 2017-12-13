@@ -8,11 +8,13 @@ import graphlab
 from graphlab import SFrame
 from graphlab.toolkits.recommender import ranking_factorization_recommender
 
+
 col_names = ["user_id", "item_id", "rating", "timestamp"]
 data = pd.read_table('./u.data', names=col_names)
 data = data.drop('timestamp', 1)
 data.info()
 pdf = pd.DataFrame(data)
+
 
 #SFrame of whole data
 sf = SFrame(pdf)
@@ -46,8 +48,9 @@ m = graphlab.recommender.create(trainsf, target='rating')
 print(m.evaluate_rmse(testsf, target='rating') )
 
 #print(myrating)
-print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa')
+print('Recommendations:')
 print(itemrating.recommend() )
+
 
 plt.hist(data['rating'])
 plt.show()
