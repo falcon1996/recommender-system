@@ -46,7 +46,7 @@ m = graphlab.recommender.create(trainsf, target='rating')
 print(m.evaluate_rmse(testsf, target='rating') )
 
 #print(myrating)
-
+print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaaa')
 print(itemrating.recommend() )
 
 plt.hist(data['rating'])
